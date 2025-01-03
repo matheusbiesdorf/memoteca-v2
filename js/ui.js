@@ -7,6 +7,8 @@ const ui = {
     document.getElementById("pensamento-id").value = pensamento.id
     document.getElementById("pensamento-conteudo").value = pensamento.conteudo
     document.getElementById("pensamento-autoria").value = pensamento.autoria
+    document.getElementById("pensamento-data").value = pensamento.data.toISOString().split("T")[0]
+    document.getElementById("form-container").scrollIntoView()
   },
 
   limparFormulario() {
@@ -17,11 +19,11 @@ const ui = {
     const listaPensamentos = document.getElementById("lista-pensamentos")
     const mensagemVazia = document.getElementById("mensagem-vazia")
     listaPensamentos.innerHTML = ""
-  
+
     try {
       let pensamentosParaRenderizar
 
-      if(pensamentosFiltrados){
+      if (pensamentosFiltrados) {
         pensamentosParaRenderizar = pensamentosFiltrados
       } else {
         pensamentosParaRenderizar = await api.buscarPensamentos()
@@ -32,7 +34,7 @@ const ui = {
       } else {
         mensagemVazia.style.display = "none"
         pensamentosParaRenderizar.forEach(ui.adicionarPensamentoNaLista)
-      } 
+      }
     }
     catch {
       alert('Erro ao renderizar pensamentos')
@@ -57,6 +59,19 @@ const ui = {
     const pensamentoAutoria = document.createElement("div")
     pensamentoAutoria.textContent = pensamento.autoria
     pensamentoAutoria.classList.add("pensamento-autoria")
+
+    const pensamentoData = document.createElement("div")
+
+    var options = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'UTC'
+    }
+    const dataFormatada = pensamento.data.toLocaleDateString('pt-BR', options)
+    pensamentoData.textContent = dataFormatada
+    pensamentoData.classList.add("pensamento-data")
 
     const botaoEditar = document.createElement("button")
     botaoEditar.classList.add("botao-editar")
@@ -85,7 +100,7 @@ const ui = {
 
     const botaoFavorito = document.createElement("button")
     botaoFavorito.classList.add("botao-favorito")
-    botaoFavorito.onclick = async() =>{
+    botaoFavorito.onclick = async () => {
       try {
         await api.atualizarFavorito(pensamento.id, !pensamento.favorito)
         ui.renderizarPensamentos()
@@ -108,6 +123,7 @@ const ui = {
     li.appendChild(iconeAspas)
     li.appendChild(pensamentoConteudo)
     li.appendChild(pensamentoAutoria)
+    li.appendChild(pensamentoData)
     li.appendChild(icones)
     listaPensamentos.appendChild(li)
   }

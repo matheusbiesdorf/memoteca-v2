@@ -9,10 +9,9 @@
     },
     {
       "id": "4c7d",
-      "favorito": false,
       "conteudo": "Da vida reclama, mas sem ela não vive!",
       "autoria": "Mestre Yoda",
-      "data": "2025-01-04T11:00:00.000Z"
+      "data": "2024-12-29"
     },
     {
       "id": "68uy",
@@ -95,6 +94,12 @@
       "conteudo": "Oi",
       "autoria": "Teste",
       "data": "2025-01-01"
+    },
+    {
+      "id": "27f3",
+      "conteudo": "Hoje é dia 3",
+      "autoria": "Matheus",
+      "data": "2025-02-03T00:00:00.000Z"
     }
   ]
 }
